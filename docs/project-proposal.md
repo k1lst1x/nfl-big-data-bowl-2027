@@ -1,66 +1,72 @@
-# Project Proposal
+# Project Proposal NFL Combine Traits and Yards After Catch
 
 **Course:** CS501: Practical Applications of Algorithms
+
 **Team:** Damir Mertl, Aayush Agasti, Aliia Rustamova, Viplav Dodeja, Meerimgul Abdibaap Kyzy
 
-**Project:** [2026 IEEE Big Data Traffic Flow Bench](https://www.kaggle.com/competitions/2026-ieee-big-data-traffic-flow-bench/overview)
-**Repository:** [k1lst1x/trafficflowbench-2026](https://github.com/k1lst1x/trafficflowbench-2026)
+**Competition:** [NFL Big Data Bowl 2027](https://www.kaggle.com/competitions/nfl-big-data-bowl-2027/overview)
 
-## Introduction
+## Purpose
 
-This project develops a traffic-analysis pipeline using the dataset provided by
-the 2026 IEEE Big Data Traffic Flow Benchmark competition. The work addresses
-missing speed and flow measurements, short-term queue forecasting, physical
-consistency of reconstructed traffic states, and estimation of vehicle path
-flows.
+We will investigate which athletic traits measured at the NFL Scouting Combine
+are associated with yards after catch (YAC) among NFL wide receivers. By
+comparing traditional Combine results with movement features derived from
+tracking data, we will evaluate whether pre-draft speed, acceleration, and
+change of direction translate into receiving performance after the catch.
 
-The scope is limited to offline analysis and evaluation of the supplied dataset.
-Deployment to a real traffic-management system is outside the project.
+The main goal is to identify and explain patterns. Predictive modeling will
+support the analysis only where the sample permits reliable validation.
 
-## Objectives
+## Scope and research question
 
-The primary objective is to build and evaluate a reproducible pipeline that
-reconstructs incomplete traffic data, forecasts congestion, and estimates path
-flows while considering traffic-flow constraints.
+The primary population is wide receivers represented in the 2023–2025 Combine
+and NFL game datasets. We will inspect player overlap, drill coverage, receiving
+plays, tracking units, and available outcome fields before fixing the analytical
+sample. Tight ends may be considered only as a separate extension if data
+coverage permits.
 
-Supporting objectives are to compare simple baselines with improved methods,
-identify conditions where predictions perform poorly, and investigate the
-tradeoff between prediction accuracy and physical consistency.
+The primary outcome is observed YAC per reception over a documented NFL game
+sample. We will validate the supplied `yards_after_catch` field and document the
+handling of receptions, missing outcomes, repeated drill attempts, and receiving
+context.
 
-## Team responsibilities
+> Which athletic traits measured at the NFL Combine translate into better YAC
+> performance among wide receivers, and do tracking-derived traits add
+> information beyond traditional Combine measurements?
+
+Results will describe associations, not causal effects or guaranteed scouting
+accuracy.
+
+## Team roles
 
 | Member | Role | Responsibilities |
 | --- | --- | --- |
-| Damir | Data / Integration Lead | Data loading, preprocessing, shared utilities, validation, experiment tracking, and submission pipeline |
-| Aayush | State Reconstruction Lead | Task 1: reconstruct missing speed and flow readings |
-| Aliia | Queue Prediction Lead | Task 2: forecast queues using permitted traffic history |
-| Viplav | Physics Lead | Task 3 and Task 1 support: evaluate physical consistency and traffic-aware corrections |
-| Meerimgul | ODME Lead | Task 4: estimate nonnegative path flows from counts, paths, incidence matrices, and priors |
-
-Task 3 evaluates the states reconstructed for Task 1; it does not require a
-separate prediction model or upload.
+| Damir | Data and Integration Lead | Data loading, cleaning, joins, shared utilities, reproducibility, and final notebook integration |
+| Aayush | Combine Feature Engineering Lead | Traditional measurements, receiver-drill segmentation, and baseline athletic features |
+| Aliia | NFL Performance and Outcome Lead | YAC per reception, reception counts, observation window, and receiving context |
+| Viplav | Movement Physics Lead | Tracking units, speed, acceleration, deceleration, directional change, and path-efficiency measures |
+| Meerimgul | Modeling and Validation Lead | Associations, interpretable models, player-grouped validation, uncertainty, and feature-set comparisons |
 
 ## Work plan
 
-| Sprint | Milestone | Main deliverable |
+| Sprint | Milestone | Deliverable |
 | --- | --- | --- |
-| 1 — Understand | Load, explore, visualize, and submit the data | Dataset inventory, initial visualizations, and valid dummy submission |
-| 2 — Baseline | Every prediction component has a working solution | Baseline v1 with component evaluations |
-| 3 — Improve | Demonstrate measurable improvement over baseline | Model v2 and experiment log |
-| 4 — Integrate | Integrate traffic-aware improvements | Integrated candidate and documented interfaces |
-| 5 — Optimize | Produce the strongest validated candidate | Submission Candidate v1 and ablation analysis |
-| 6 — Finalize | Complete submission and class deliverables | Reproducible code, final report, and presentation |
+| 1 — Understand | Inventory and connect the competition data | Dataset overview, initial tracking visualizations, proposed YAC definition, and approved research question |
+| 2 — Baseline | Working first version of every analytical component | Joined player table, YAC outcome, initial motion features, and baseline associations |
+| 3 — Improve | Determine whether tracking adds signal beyond traditional measures | Refined features, context checks, model comparison, and experiment log |
+| 4 — Connect | Integrate movement, opportunity, and football interpretation | End-to-end reproducible analysis and interpretable effects |
+| 5 — Evaluate | Produce the strongest defensible candidate | Error, ablation, sensitivity, and limitation analysis |
+| 6 — Finalize | Complete competition and class deliverables | Public notebook, competition writeup, final report, presentation, and frozen code |
 
-The team will begin with interpretable baselines, then test machine-learning and
-optimization methods only where validation supports the added complexity. Work
-will use shared reviews and rotating paired collaboration to balance the
-workload and support learning.
+The team begins with interpretable baselines, applies regularized or simple
+regression first, and tests more complex models only when sample size and
+validation justify them.
 
 ## Expected outcome
 
-The expected outcome is a working pipeline that produces the required traffic
-predictions and assembles them into the competition submission format. Final
-deliverables will include documented source code, reproducible experiments,
-traffic visualizations, a report, and a presentation. Success is measured by a
-complete, reproducible implementation, sound evaluation, and demonstrated team
-learning; improvement over baseline methods is a target rather than a guarantee.
+The project will deliver a reproducible analysis explaining whether and how
+traditional Combine results and tracking-derived athletic traits are associated
+with YAC per reception. Deliverables include documented code, a public Kaggle
+notebook, clear visualizations, a concise competition writeup, a class report,
+and a presentation. A weak or absent relationship is a valid result when
+supported by the data.

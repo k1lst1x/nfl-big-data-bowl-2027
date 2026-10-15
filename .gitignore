@@ -163,6 +163,8 @@ cython_debug/
 data/
 kaggle_public/
 *.7z
+nfl-big-data-bowl-2027/
+*.zip
 
 # Kaggle credentials
 .kaggle/

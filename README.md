@@ -1,52 +1,54 @@
-# TrafficFlowBench 2026
+# NFL Big Data Bowl 2027
 
 Course project for **CS501: Practical Applications of Algorithms** using the
-[2026 IEEE Big Data Traffic Flow Bench](https://www.kaggle.com/competitions/2026-ieee-big-data-traffic-flow-bench)
+[NFL Big Data Bowl 2027](https://www.kaggle.com/competitions/nfl-big-data-bowl-2027)
 competition.
 
 ## Team
 
 - Damir Mertl — Data and Integration Lead
-- Aayush Agasti — State Reconstruction Lead
-- Aliia Rustamova — Queue Prediction Lead
-- Viplav Dodeja — Physics Lead
-- Meerimgul Abdibaap Kyzy — ODME Lead
+- Aayush Agasti — Combine Feature Engineering Lead
+- Aliia Rustamova — NFL Performance and Outcome Lead
+- Viplav Dodeja — Movement Physics Lead
+- Meerimgul Abdibaap Kyzy — Modeling and Validation Lead
 
 ## Project goal
 
-Build and evaluate a reproducible traffic-analysis pipeline that reconstructs
-missing freeway measurements, forecasts short-term queues, evaluates physical
-consistency, and estimates vehicle path flows.
+Investigate whether athletic traits measured at the NFL Scouting Combine are
+associated with yards after catch (YAC) per reception among NFL wide receivers.
+The analysis compares traditional Combine results with movement traits derived
+from 10 Hz Combine tracking data.
 
-The project addresses all four competition tasks:
+The primary research question is:
 
-1. Reconstruct masked speed and flow measurements.
-2. Forecast queued links over the next 30 minutes from permitted history.
-3. Assess whether the Task 1 reconstruction respects traffic-flow physics.
-4. Estimate nonnegative path flows from link counts, network paths, and priors.
+> Do speed, acceleration, and change-of-direction traits measured using Combine
+> tracking data help explain wide receivers' average YAC beyond traditional
+> Combine results?
 
-Task 3 has no separate submission rows: the competition evaluates the speed and
-flow values submitted for Task 1.
+This is an association analysis, not a claim that Combine performance causes NFL
+success. Predictive comparisons are included only if the available player sample
+supports reliable player-grouped validation.
 
 ## Project pipeline
 
-The architecture and task relationships are documented in
+The analysis workflow and component relationships are documented in
 [docs/architecture.md](docs/architecture.md).
 
 ## Repository layout
 
 ```text
-docs/       Project documentation and architecture
+docs/       Proposal, requirements, data guide, and architecture
 data/       Local competition data (ignored; never commit it)
-notebooks/  Exploratory analysis and experiments
-src/        Reusable data, modeling, evaluation, and submission code
+notebooks/  Reproducible exploratory and final Kaggle analyses
+src/        Reusable loading, feature, outcome, and modeling code
 ```
 
 ## Data and references
 
-- [Competition page](https://www.kaggle.com/competitions/2026-ieee-big-data-traffic-flow-bench)
-- [Official benchmark code, schemas, baselines, and scoring rules](https://github.com/jacky850/trafficflowbench-public)
-- [Submitted project proposal](docs/project-proposal.md)
+- [Competition overview and data](https://www.kaggle.com/competitions/nfl-big-data-bowl-2027)
+- [Project proposal](docs/project-proposal.md)
+- [Initial requirements analysis](docs/initial-requirements.md)
+- [Dataset guide](docs/data.md)
 
 Competition data is downloaded separately from Kaggle. Do not commit downloaded
 data, Kaggle credentials, generated submissions, or other large artifacts.

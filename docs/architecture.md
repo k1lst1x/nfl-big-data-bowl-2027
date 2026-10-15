@@ -1,33 +1,44 @@
-# Traffic-analysis pipeline
+# NFL Combine traits and yards after catch architecture
 
-This diagram shows how the four competition tasks fit together. It deliberately
-describes the project at a high level; model choices will be evaluated and
-recorded during the project sprints.
+This diagram shows the reproducible analysis pipeline for the project. The
+analysis links pre-draft measurements to later NFL receiving performance while
+keeping feature construction, outcome construction, and evaluation separate.
 
 ```mermaid
 flowchart TD
-    D[Competition data\nstate observations, network, ramps, counts, paths]
+    P[players.csv\nWR eligibility and player identity]
+    C[combine_results.csv\ntraditional Combine measurements]
+    CT[combine_tracking.csv\n10 Hz drill tracking]
+    PP[player_play.csv\nNFL receiving-play outcomes]
+    G[games.csv\nseason and game context]
 
-    D --> T1[Task 1\nReconstruct masked speed and flow]
-    T1 --> T3[Task 3\nEvaluate physics consistency\nfundamental diagram and conservation]
+    P --> J[Validated WR player sample]
+    C --> T[Traditional feature table]
+    CT --> M[Tracking-derived movement traits]
+    P --> J
+    J --> T
+    J --> M
 
-    D --> T2[Task 2\nForecast queues\n60-minute history → 30-minute horizon]
-    D --> T4[Task 4\nEstimate nonnegative path flows\ncounts + incidence matrix + prior]
+    PP --> Y[YAC per reception outcome]
+    G --> Y
+    J --> Y
 
-    T1 --> S[Unified Kaggle submission CSV]
-    T2 --> S
-    T4 --> S
+    T --> A[Association and model comparison]
+    M --> A
+    Y --> A
 
-    T3 -. scores the Task 1 values; no separate upload .-> S
+    A --> R[Reproducible notebook\nfigures, uncertainty, limitations]
 ```
 
-## Interpretation
+## Analysis safeguards
 
-- **Task 1** produces reconstructed speed and flow values for masked state rows.
-- **Task 3** evaluates those same Task 1 values for fundamental-diagram validity
-  and vehicle conservation; it does not require a separate prediction file.
-- **Task 2** is an online forecasting task: each window supplies 60 minutes of
-  history and requires queue predictions for the next 30 minutes.
-- **Task 4** is a separate origin-destination/path-flow estimation problem based
-  on released link counts, paths, an incidence matrix, and a prior.
-- The final upload combines Task 1, Task 2, and Task 4 rows into one CSV.
+- Match records using `nfl_id` and report unmatched, duplicate, or ambiguous
+  records before modeling.
+- Define the receiver sample, observation window, and minimum-reception rule
+  before comparing feature sets.
+- Calculate YAC per reception from valid receiving plays; do not treat missing
+  outcomes as zero.
+- Compare traditional-only, tracking-only, and combined feature sets using the
+  same eligible player sample and player-grouped validation.
+- Describe associations rather than causation, and report sample and football
+  context limitations.
