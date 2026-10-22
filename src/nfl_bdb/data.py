@@ -17,7 +17,7 @@ REQUIRED_COLUMNS = {
     "players.csv": ("nfl_id", "nfl_position", "draft_year"),
     "combine_results.csv": ("nfl_id", "draft_year"),
     "combine_tracking.csv": ("nfl_id", "entity_type", "draft_year", "event_id", "drill_type"),
-    "player_play.csv": ("nfl_id", "game_id", "play_id", "pass_result", "rec_yards", "yards_after_catch", "play_nullified_by_penalty"),
+    "player_play.csv": ("nfl_id", "game_id", "play_id", "pass_result", "rec_yards", "yards_after_catch", "play_nullified_by_penalty", "target"),
     "games.csv": ("game_id", "season", "season_type"),
     "player_career_successes.csv": ("nfl_id",),
     "game_tracking_2023.csv": ("game_id", "play_id", "nfl_id"),
@@ -84,21 +84,32 @@ def _require_unique(frame, keys, name):
         raise ValueError(f"{name} has {duplicates} rows in duplicate {', '.join(keys)} groups; investigate before joining.")
 
 
-def _player_tracking_ids(data_dir, chunksize):
+def _player_tracking_ids(data_dir, chunksize, wr_ids):
     name = "combine_tracking.csv"
     columns_for(data_dir, name)
     ids = set()
     missing_ids = 0
     player_rows = 0
     drills = set()
-    for chunk in pd.read_csv(csv_path(data_dir, name), usecols=["nfl_id", "entity_type", "drill_type"],
-                             dtype={"nfl_id": "string"}, chunksize=chunksize):
+    wr_drill_players = {}
+    wr_drill_events = {}
+    for chunk in pd.read_csv(csv_path(data_dir, name), usecols=["nfl_id", "entity_type", "drill_type", "event_id"],
+                             dtype={"nfl_id": "string", "event_id": "string"}, chunksize=chunksize):
         player = chunk[chunk["entity_type"].eq("PLAYER")]
         player_rows += len(player)
         missing_ids += int(player["nfl_id"].isna().sum())
         ids.update(player["nfl_id"].dropna().tolist())
         drills.update(player["drill_type"].dropna().tolist())
-    return ids, player_rows, missing_ids, sorted(drills)
+        wr_tracking = player[player["nfl_id"].isin(wr_ids)]
+        for drill, group in wr_tracking.groupby("drill_type"):
+            wr_drill_players.setdefault(drill, set()).update(group["nfl_id"].dropna())
+            wr_drill_events.setdefault(drill, set()).update(group["event_id"].dropna())
+    drill_coverage = pd.DataFrame([
+        {"drill_type": drill, "wr_players": len(wr_drill_players[drill]),
+         "event_ids": len(wr_drill_events[drill])}
+        for drill in sorted(wr_drill_players)
+    ], columns=["drill_type", "wr_players", "event_ids"])
+    return ids, player_rows, missing_ids, sorted(drills), drill_coverage
 
 
 def coverage_report(data_dir, chunksize=200_000):
@@ -121,7 +132,7 @@ def coverage_report(data_dir, chunksize=200_000):
     wr = players.loc[players["nfl_position"].eq("WR") & players["nfl_id"].notna()].copy()
     wr_ids = set(wr["nfl_id"])
     all_player_ids = set(players["nfl_id"].dropna())
-    tracking_ids, tracking_rows, tracking_missing, drills = _player_tracking_ids(data_dir, chunksize)
+    tracking_ids, tracking_rows, tracking_missing, drills, wr_drills = _player_tracking_ids(data_dir, chunksize, wr_ids)
     combine_ids = set(combine["nfl_id"].dropna())
     # Pandas matches null keys to null keys; exclude missing game IDs on the
     # dimension side so they remain unmatched instead of acquiring a season.
@@ -151,6 +162,7 @@ def coverage_report(data_dir, chunksize=200_000):
         {"measure": "WR with candidate regular-season YAC", "count": int(wr["has_candidate_yac"].sum())},
         {"measure": "WR with tracking and candidate YAC", "count": int(wr["tracking_and_candidate_yac"].sum())},
         {"measure": "Candidate receiving rows (unvalidated)", "count": len(candidates)},
+        {"measure": "Candidate rows marked target=True (unvalidated)", "count": int(candidates["target"].eq(True).sum())},
     ])
     diagnostics = pd.DataFrame([
         {"check": "players: missing nfl_id", "count": int(players["nfl_id"].isna().sum())},
@@ -167,6 +179,8 @@ def coverage_report(data_dir, chunksize=200_000):
         {"check": "games: missing game_id", "count": int(games["game_id"].isna().sum())},
         {"check": "player plays: rows in duplicate game_id + play_id + nfl_id groups", "count": _duplicate_count(plays, ["game_id", "play_id", "nfl_id"])},
         {"check": "player plays: unmatched or missing game_id", "count": int(matched_games["_merge"].eq("left_only").sum())},
+        {"check": "candidate rows marked target=False", "count": int(candidates["target"].eq(False).sum())},
+        {"check": "candidate rows with missing target", "count": int(candidates["target"].isna().sum())},
     ])
     by_year = (wr.groupby("draft_year", dropna=False)
                .agg(wr_players=("nfl_id", "size"),
@@ -182,7 +196,13 @@ def coverage_report(data_dir, chunksize=200_000):
          "missing_rows": int(wr_combine[col].isna().sum()) if col in wr_combine.columns else None}
         for col in traditional
     ])
+    receptions_per_player = candidates.groupby("nfl_id").size()
+    thresholds = pd.DataFrame([
+        {"minimum_candidate_rows": threshold, "wr_players": int(receptions_per_player.ge(threshold).sum())}
+        for threshold in (1, 5, 10, 20, 30, 50, 100)
+    ])
     return {"summary": summary, "by_draft_year": by_year, "diagnostics": diagnostics,
-            "traditional_missingness": missingness,
+            "traditional_missingness": missingness, "wr_drill_coverage": wr_drills,
+            "candidate_thresholds": thresholds,
             "game_periods": games.groupby(["season", "season_type"], dropna=False).size().reset_index(name="games"),
             "tracking_drill_types": drills, "wr_coverage": wr}

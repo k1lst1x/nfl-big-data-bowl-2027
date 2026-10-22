@@ -39,6 +39,8 @@ def sample_data(tmp_path):
             {"nfl_id": 4, "game_id": 100, "play_id": 6, "pass_result": "C", "rec_yards": 10, "yards_after_catch": 5, "play_nullified_by_penalty": "N"},
         ],
     }
+    for row in tables["player_play.csv"]:
+        row["target"] = True
     for filename, rows in tables.items():
         pd.DataFrame(rows).to_csv(tmp_path / filename, index=False)
     return tmp_path
@@ -96,12 +98,28 @@ def test_missing_game_id_never_matches_missing_game_key(sample_data):
     games.loc[len(games)] = [None, 2024, "REG"]
     games.to_csv(games_path, index=False)
     plays = pd.read_csv(plays_path)
-    plays.loc[len(plays)] = [3, None, 7, "C", 10, 5, "N"]
+    plays.loc[len(plays)] = [3, None, 7, "C", 10, 5, "N", True]
     plays.to_csv(plays_path, index=False)
     report = coverage_report(sample_data)
     diagnostics = report["diagnostics"].set_index("check")["count"]
     assert diagnostics["player plays: unmatched or missing game_id"] == 2
     assert report["summary"].set_index("measure").loc["WR with candidate regular-season YAC", "count"] == 2
+
+
+def test_flags_candidate_that_was_not_the_target(sample_data):
+    path = sample_data / "player_play.csv"
+    plays = pd.read_csv(path)
+    plays.loc[0, "target"] = False
+    plays.to_csv(path, index=False)
+    report = coverage_report(sample_data, chunksize=2)
+    diagnostic = report["diagnostics"].set_index("check")["count"]
+    summary = report["summary"].set_index("measure")["count"]
+    assert diagnostic["candidate rows marked target=False"] == 1
+    assert summary["Candidate receiving rows (unvalidated)"] == 2
+    assert summary["Candidate rows marked target=True (unvalidated)"] == 1
+    drills = report["wr_drill_coverage"].set_index("drill_type")
+    assert drills.loc["FORTY", "wr_players"] == 1
+    assert drills.loc["FORTY", "event_ids"] == 1  # repeated frames are one event
 
 
 def test_notebook_runs_end_to_end_with_synthetic_data(sample_data, monkeypatch):

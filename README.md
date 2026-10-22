@@ -49,6 +49,7 @@ src/        Reusable loading, feature, outcome, and modeling code
 - [Project proposal](docs/project-proposal.md)
 - [Initial requirements analysis](docs/initial-requirements.md)
 - [Dataset guide](docs/data.md)
+- [Initial data inventory](docs/data-inventory.md)
 
 Competition data is downloaded separately from Kaggle. Do not commit downloaded
 data, Kaggle credentials, generated submissions, or other large artifacts.
