@@ -19,6 +19,18 @@ required input for the initial YAC outcome because `player_play.csv` supplies
 `yards_after_catch`; they may be used later only for a documented validation or
 context analysis.
 
+The competition lists the data license as CC BY-NC 4.0. Download the files from
+the competition page under the applicable rules; do not commit raw data to this
+repository.
+
+## Initial inventory
+
+Run `notebooks/00_data_inventory.ipynb` after acquiring the files. It checks
+schemas, row counts, selected missing values, duplicate keys, game periods, and
+WR overlap. The YAC coverage check uses a provisional candidate filter, not a
+validated reception definition. Tracking coverage includes `PLAYER` rows only.
+The notebook scans large files in chunks, so the full inventory can take time.
+
 ## Join and sample rules
 
 1. Use `nfl_id` as the player key between player, Combine-result, Combine-tracking,

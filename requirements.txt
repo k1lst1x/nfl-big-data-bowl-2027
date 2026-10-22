@@ -11,3 +11,10 @@ jupyterlab>=4,<5
 # Modeling and validation
 scikit-learn>=1.5,<2
 statsmodels>=0.14,<1
+
+# Data access and tests
+kagglehub>=0.3,<2
+pytest>=8,<10
+nbclient>=0.10,<1
+nbformat>=5.10,<6
+ipykernel>=6,<8

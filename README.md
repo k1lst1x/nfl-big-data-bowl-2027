@@ -52,3 +52,29 @@ src/        Reusable loading, feature, outcome, and modeling code
 
 Competition data is downloaded separately from Kaggle. Do not commit downloaded
 data, Kaggle credentials, generated submissions, or other large artifacts.
+
+## Getting started
+
+1. Join the competition and accept its rules on Kaggle, then download and
+   extract its nine CSV files into `data/`. Alternatively, authenticate with
+   Kaggle and use `kagglehub.competition_download("nfl-big-data-bowl-2027")`;
+   set `NFL_DATA_DIR` to the returned directory. Never share or commit tokens.
+2. Create a Python virtual environment, install dependencies, and run Jupyter:
+
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate
+   python -m pip install -r requirements.txt
+   jupyter lab
+   ```
+
+3. Open `notebooks/00_data_inventory.ipynb` and run all cells. With files outside
+   `data/`, set `NFL_DATA_DIR` before launching Jupyter:
+
+   ```bash
+   export NFL_DATA_DIR=/path/to/competition-csvs
+   jupyter lab
+   ```
+
+Run the small synthetic-data tests with `python -m pytest -q`. The inventory
+reports candidate YAC coverage, not a validated final reception definition.
