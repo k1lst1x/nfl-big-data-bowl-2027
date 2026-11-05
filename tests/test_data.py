@@ -120,3 +120,36 @@ def test_notebook_runs_end_to_end_with_synthetic_data(sample_data, monkeypatch):
                             resources={"metadata": {"path": str(root)}}).execute()
     assert all(output.output_type != "error" for cell in result.cells
                for output in cell.get("outputs", []))
+
+
+def test_receiving_audit_preserves_zero_and_negative_yac(sample_data):
+    from nfl_bdb.receiving import receiving_audit
+
+    path = sample_data / 'player_play.csv'
+    plays = pd.read_csv(path)
+    plays['target'] = True
+    plays.loc[len(plays)] = [1, 100, 8, 'C', 3, -2, 'N', True]
+    plays.loc[len(plays)] = [1, 100, 9, 'C', 3, 7, 'N', False]
+    plays.to_csv(path, index=False)
+    report = receiving_audit(sample_data)
+    table = report['player_season'].set_index('nfl_id')
+    assert table.loc['1', 'candidate_receptions'] == 2
+    assert table.loc['1', 'candidate_yac_per_reception'] == 1.5
+    assert table.loc['2', 'candidate_yac_per_reception'] == 0
+    assert '4' in table.index  # TE is retained separately
+    assert report['diagnostics']['yac_rows_without_target_true'] == 1
+    missing = report['missingness'].query("position == 'WR' and metric == 'forty'").iloc[0]
+    assert not missing['column_available']
+    assert missing['usable_players'] == 0
+    assert report['diagnostics']['unmatched_game_rows'] == 1
+
+
+def test_receiving_audit_rejects_duplicate_plays(sample_data):
+    from nfl_bdb.receiving import receiving_audit
+
+    path = sample_data / 'player_play.csv'
+    plays = pd.read_csv(path)
+    plays['target'] = True
+    pd.concat([plays, plays.iloc[[0]]]).to_csv(path, index=False)
+    with pytest.raises(ValueError, match='duplicate game_id, play_id, nfl_id'):
+        receiving_audit(sample_data)

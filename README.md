@@ -78,3 +78,14 @@ data, Kaggle credentials, generated submissions, or other large artifacts.
 
 Run the small synthetic-data tests with `python -m pytest -q`. The inventory
 reports candidate YAC coverage, not a validated final reception definition.
+
+## Reception validation
+
+See [the receiving validation snapshot](docs/receiving-validation.md) for local
+data locations, provisional WR/TE sample sizes, missingness and unresolved
+attribution/unit checks. Generate the provisional player-season table with:
+
+```bash
+PYTHONPATH=src python -m nfl_bdb.receiving \
+  --data-dir ../RawData --output-dir outputs/receiving_audit
+```
