@@ -79,3 +79,20 @@ data, Kaggle credentials, generated submissions, or other large artifacts.
 
 Run the small synthetic-data tests with `python -m pytest -q`. The inventory
 reports candidate YAC coverage, not a validated final reception definition.
+
+## Prepare the WR cohort
+
+The existing inventory notebook remains the preliminary `00` step. Generate the
+validated one-row-per-player WR cohort without duplicating that notebook:
+
+```bash
+PYTHONPATH=src python -m nfl_bdb.players \
+  --data-dir "$NFL_DATA_DIR" \
+  --output data/processed/clean_wr_players.csv
+```
+
+The command keeps 2023-2025 wide receivers, validates player and Combine keys,
+checks draft-year agreement, and records Combine-result and PLAYER-tracking
+coverage. The generated CSV stays local because competition-derived `data/`
+files are ignored by Git. See [the data dictionary](docs/data_dictionary.md) for
+the output contract and source fields.

@@ -159,8 +159,12 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-# Competition data and local artifacts
-data/
+# Competition data and local artifacts. Keep raw data local, but allow the
+# small, reproducible WR-cohort deliverable to be versioned.
+data/*
+!data/processed/
+data/processed/*
+!data/processed/clean_wr_players.csv
 kaggle_public/
 *.7z
 nfl-big-data-bowl-2027/

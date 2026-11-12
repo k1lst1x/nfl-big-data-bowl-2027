@@ -1,0 +1,107 @@
+nfl_id,display_name,draft_year,nfl_position,birth_date,college_name,college_conference,draft_round,draft_pick_within_round,draft_overall_pick,has_combine_results,has_player_tracking
+55884,Jaxon Smith-Njigba,2023,WR,2002-02-14,Ohio State,Big Ten Conference,1.0,20.0,20.0,True,True
+55885,Quentin Johnston,2023,WR,2001-09-06,Texas Christian,Big Twelve Conference,1.0,22.0,21.0,True,True
+55887,Jordan Addison,2023,WR,2002-01-27,Southern California,Pacific Twelve Conference,1.0,24.0,23.0,True,True
+55904,Jonathan Mingo,2023,WR,2001-04-20,Mississippi,Southeastern Conference,2.0,8.0,39.0,True,True
+55915,Jayden Reed,2023,WR,2000-04-28,Michigan State,Big Ten Conference,2.0,19.0,50.0,True,True
+55920,Rashee Rice,2023,WR,2000-04-22,Southern Methodist,American Athletic Conference,2.0,24.0,55.0,True,True
+55928,Marvin Mims,2023,WR,2002-03-19,Oklahoma,Big Twelve Conference,2.0,32.0,63.0,True,True
+55934,Tank Dell,2023,WR,1999-10-29,Houston,American Athletic Conference,3.0,6.0,69.0,True,True
+55938,Jalin Hyatt,2023,WR,2001-09-25,Tennessee,Southeastern Conference,3.0,10.0,73.0,True,True
+55939,Cedric Tillman,2023,WR,2000-04-19,Tennessee,Southeastern Conference,3.0,11.0,74.0,True,True
+55959,Michael Wilson,2023,WR,2000-02-23,Stanford,Pacific Twelve Conference,3.0,31.0,94.0,True,True
+55965,Tre Tucker,2023,WR,2001-03-08,Cincinnati,American Athletic Conference,3.0,37.0,100.0,True,True
+55990,Derius Davis,2023,WR,2000-09-11,Texas Christian,Big Twelve Conference,4.0,23.0,125.0,True,True
+55998,Tyler Scott,2023,WR,2001-10-12,Cincinnati,American Athletic Conference,4.0,31.0,133.0,True,True
+56015,Justin Shorter,2023,WR,2000-04-17,Florida,Southeastern Conference,5.0,16.0,150.0,True,True
+56042,Puka Nacua,2023,WR,2001-05-29,Brigham Young,Independent,5.0,43.0,177.0,True,True
+56052,Kayshon Boutte,2023,WR,2002-05-07,Louisiana State,Southeastern Conference,6.0,10.0,187.0,True,True
+56056,Trey Palmer,2023,WR,2001-04-02,Nebraska,Big Ten Conference,6.0,14.0,191.0,True,True
+56060,A.T. Perry,2023,WR,1999-10-26,Wake Forest,Atlantic Coast Conference,6.0,18.0,195.0,True,True
+56070,Xavier Hutchinson,2023,WR,2000-06-01,Iowa State,Big Twelve Conference,6.0,28.0,205.0,True,True
+56071,Andrei Iosivas,2023,WR,1999-10-15,Princeton,Ivy League,6.0,29.0,206.0,True,True
+56075,Demario Douglas,2023,WR,2000-12-08,Liberty,Independent,6.0,33.0,210.0,True,True
+56084,Antoine Green,2023,WR,1999-11-15,North Carolina,Atlantic Coast Conference,7.0,2.0,219.0,True,True
+56109,Jalen Brooks,2023,WR,2000-05-07,South Carolina,Southeastern Conference,7.0,27.0,244.0,True,True
+56118,Ronnie Bell,2023,WR,2000-01-28,Michigan,Big Ten Conference,7.0,36.0,253.0,True,True
+56121,Grant DuBose,2023,WR,2001-06-20,North Carolina-Charlotte,American Athletic Conference,7.0,39.0,256.0,True,True
+56198,Dontay Demus,2023,WR,2000-09-26,Maryland,Big Ten Conference,,,,True,True
+56220,Malik Heath,2023,WR,2000-03-31,Mississippi,Southeastern Conference,,,,True,True
+56232,Bryce Ford-Wheaton,2023,WR,2000-04-09,West Virginia,Big Twelve Conference,,,,True,True
+56238,Jadon Haselwood,2023,WR,2001-04-15,Arkansas,Southeastern Conference,,,,True,True
+56239,Joseph Ngata,2023,WR,2001-01-09,Clemson,Atlantic Coast Conference,,,,True,True
+56248,Jason Brownlee,2023,WR,1999-01-30,Southern Mississippi,Conference USA,,,,True,True
+56361,Jaray Jenkins,2023,WR,2000-01-04,Louisiana State,Southeastern Conference,,,,True,True
+56371,Jalen Wayne,2023,WR,1999-05-13,South Alabama,Sun Belt Conference,,,,True,True
+56471,Jake Bobo,2023,WR,1998-08-04,UCLA,Pacific Twelve Conference,,,,True,True
+56541,Rakim Jarrett,2023,WR,2001-01-24,Maryland,Big Ten Conference,,,,True,True
+56559,Mitch Tinsley,2023,WR,1999-09-15,Penn State,Big Ten Conference,,,,True,True
+56563,Jacob Copeland,2023,WR,1999-06-20,Maryland,Big Ten Conference,,,,True,True
+57130,Rome Odunze,2024,WR,2002-06-03,Washington,Pacific Twelve Conference,1.0,9.0,9.0,True,True
+57144,Brian Thomas,2024,WR,2002-10-08,Louisiana State,Southeastern Conference,1.0,23.0,23.0,True,True
+57152,Ricky Pearsall,2024,WR,2000-09-09,Florida,Southeastern Conference,1.0,31.0,31.0,True,True
+57153,Xavier Legette,2024,WR,2001-01-29,South Carolina,Southeastern Conference,1.0,32.0,32.0,True,True
+57154,Keon Coleman,2024,WR,2003-05-17,Florida State,Atlantic Coast Conference,2.0,1.0,33.0,True,True
+57155,Ladd McConkey,2024,WR,2001-11-11,Georgia,Southeastern Conference,2.0,2.0,34.0,True,True
+57158,Ja'Lynn Polk,2024,WR,2001-04-11,Washington,Pacific Twelve Conference,2.0,5.0,37.0,True,True
+57173,Adonai Mitchell,2024,WR,2002-10-08,Texas,Big Twelve Conference,2.0,20.0,52.0,True,True
+57201,Jermaine Burton,2024,WR,2001-06-28,Alabama,Southeastern Conference,3.0,16.0,80.0,True,True
+57205,Roman Wilson,2024,WR,2001-06-19,Michigan,Big Ten Conference,3.0,20.0,84.0,True,True
+57213,Jalen McMillan,2024,WR,2001-12-07,Washington,Pacific Twelve Conference,3.0,29.0,92.0,True,True
+57221,Luke McCaffrey,2024,WR,2001-04-02,Rice,American Athletic Conference,3.0,37.0,100.0,True,True
+57223,Troy Franklin,2024,WR,2003-02-06,Oregon,Pacific Twelve Conference,4.0,2.0,102.0,True,True
+57231,Javon Baker,2024,WR,2002-02-18,Central Florida,Big Twelve Conference,4.0,10.0,110.0,True,True
+57234,Devontez Walker,2024,WR,2001-06-19,North Carolina,Atlantic Coast Conference,4.0,13.0,113.0,True,True
+57256,Jacob Cowing,2024,WR,2001-02-04,Arizona,Pacific Twelve Conference,4.0,35.0,135.0,True,True
+57263,Anthony Gould,2024,WR,2001-04-06,Oregon State,Pacific Twelve Conference,5.0,7.0,142.0,True,True
+57277,Jamari Thrash,2024,WR,2000-12-19,Louisville,Atlantic Coast Conference,5.0,21.0,156.0,True,True
+57291,Bub Means,2024,WR,2001-01-10,Pittsburgh,Atlantic Coast Conference,5.0,35.0,170.0,True,True
+57302,Jha'Quan Jackson,2024,WR,2000-05-15,Tulane,American Athletic Conference,6.0,6.0,182.0,True,True
+57304,Malik Washington,2024,WR,2000-10-20,Virginia,Atlantic Coast Conference,6.0,8.0,184.0,True,True
+57305,Johnny Wilson,2024,WR,2001-04-03,Florida State,Atlantic Coast Conference,6.0,9.0,185.0,True,True
+57336,Ryan Flournoy,2024,WR,1999-10-27,Southeast Missouri,Big South - Ohio Valley Conference,6.0,40.0,216.0,True,True
+57345,Brenden Rice,2024,WR,2002-03-18,Southern California,Pacific Twelve Conference,7.0,5.0,225.0,True,True
+57355,Devaughn Vele,2024,WR,1997-12-12,Utah,Pacific Twelve Conference,7.0,15.0,235.0,True,True
+57361,Tahj Washington,2024,WR,2001-05-16,Southern California,Pacific Twelve Conference,7.0,21.0,241.0,True,True
+57373,Cornelius Johnson,2024,WR,2000-11-29,Michigan,Big Ten Conference,7.0,33.0,253.0,True,True
+57565,Isaiah Williams,2024,WR,2001-01-29,Illinois,Big Ten Conference,,,,True,True
+57606,Jalen Coker,2024,WR,2001-10-30,Holy Cross,Patriot League,,,,True,True
+57660,Lideatrick Griffin,2024,WR,2001-01-23,Mississippi State,Southeastern Conference,,,,True,True
+57824,Marcus Rosemy-Jacksaint,2024,WR,2002-01-08,Georgia,Southeastern Conference,,,,True,True
+58239,Jayden Higgins,2025,WR,2002-12-15,Iowa State,Big Twelve Conference,2.0,2.0,34.0,True,True
+58244,Luther Burden,2025,WR,2003-12-12,Missouri,Southeastern Conference,2.0,7.0,39.0,True,True
+58263,Jack Bech,2025,WR,2002-12-18,Texas Christian,Big Twelve Conference,2.0,26.0,58.0,True,True
+58274,Kyle Williams,2025,WR,2002-11-13,Washington State,Pacific Twelve Conference,3.0,5.0,69.0,True,True
+58275,Isaac TeSlaa,2025,WR,2002-02-20,Arkansas,Southeastern Conference,3.0,6.0,70.0,True,True
+58279,Pat Bryant,2025,WR,2002-12-10,Illinois,Big Ten Conference,3.0,10.0,74.0,True,True
+58284,Jaylin Noel,2025,WR,2002-09-04,Iowa State,Big Twelve Conference,3.0,15.0,79.0,True,True
+58307,Tai Felton,2025,WR,2003-03-15,Maryland,Big Ten Conference,3.0,38.0,102.0,True,True
+58308,Chimere Dike,2025,WR,2001-12-14,Florida,Southeastern Conference,4.0,1.0,103.0,True,True
+58313,Dont'e Thornton,2025,WR,2002-11-30,Tennessee,Southeastern Conference,4.0,6.0,108.0,True,True
+58315,Arian Smith,2025,WR,2001-10-11,Georgia,Southeastern Conference,4.0,8.0,110.0,True,True
+58333,Jaylin Lane,2025,WR,2002-05-01,Virginia Tech,Atlantic Coast Conference,4.0,26.0,128.0,True,True
+58338,Jalen Royals,2025,WR,2003-02-18,Utah State,Mountain West Conference,4.0,31.0,133.0,True,True
+58341,Elic Ayomanor,2025,WR,2003-06-03,Stanford,Atlantic Coast Conference,4.0,34.0,136.0,True,True
+58343,Jordan Watkins,2025,WR,2002-02-15,Mississippi,Southeastern Conference,4.0,36.0,138.0,True,True
+58363,KeAndre Lambert-Smith,2025,WR,2001-10-16,Auburn,Southeastern Conference,5.0,22.0,158.0,True,True
+58408,LaJohntay Wester,2025,WR,2002-03-29,Colorado,Big Twelve Conference,6.0,27.0,203.0,True,True
+58413,Jimmy Horn,2025,WR,2002-09-12,Colorado,Big Twelve Conference,6.0,32.0,208.0,True,True
+58440,Tez Johnson,2025,WR,2002-05-18,Oregon,Big Ten Conference,7.0,19.0,235.0,True,True
+58443,Ricky White,2025,WR,2002-02-06,Nevada-Las Vegas,Mountain West Conference,7.0,22.0,238.0,True,True
+58445,Kaden Prather,2025,WR,2002-09-06,Maryland,Big Ten Conference,7.0,24.0,240.0,True,True
+58447,Konata Mumpfield,2025,WR,2002-10-24,Pittsburgh,Atlantic Coast Conference,7.0,26.0,242.0,True,True
+58449,Dominic Lovett,2025,WR,2002-11-08,Georgia,Southeastern Conference,7.0,28.0,244.0,True,True
+58493,Traeshon Holden,2025,WR,2001-08-12,Oregon,Big Ten Conference,,,,True,True
+58494,Josh Kelly,2025,WR,2001-07-01,Texas Tech,Big Twelve Conference,,,,True,True
+58514,Elijhah Badger,2025,WR,2001-08-15,Florida,Southeastern Conference,,,,True,True
+58717,Jacolby George,2025,WR,2003-01-25,Miami,Atlantic Coast Conference,,,,True,True
+58721,Kobe Hudson,2025,WR,2001-09-11,Central Florida,Big Twelve Conference,,,,True,True
+58734,Andrew Armstrong,2025,WR,2000-10-31,Arkansas,Southeastern Conference,,,,True,True
+58751,Ja'Corey Brooks,2025,WR,2001-10-31,Louisville,Atlantic Coast Conference,,,,True,True
+58883,Antwane Wells,2025,WR,2001-04-02,Mississippi,Southeastern Conference,,,,True,True
+58901,Da'Quan Felton,2025,WR,2001-01-13,Virginia Tech,Atlantic Coast Conference,,,,True,True
+58968,Xavier Restrepo,2025,WR,2002-04-12,Miami,Atlantic Coast Conference,,,,True,True
+58977,Roc Taylor,2025,WR,2001-09-26,Memphis,American Athletic Conference,,,,True,True
+58997,Nick Nash,2025,WR,1999-07-08,San Jose State,Mountain West Conference,,,,True,True
+59004,Isaiah Neyor,2025,WR,2001-06-07,Nebraska,Big Ten Conference,,,,True,True
+59278,Isaiah Bond,2025,WR,2004-03-15,Texas,Southeastern Conference,,,,True,True
