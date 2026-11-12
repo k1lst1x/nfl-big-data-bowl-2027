@@ -6,16 +6,17 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from nfl_bdb.data import columns_for, coverage_report, file_inventory, read_columns
+from nfl_bdb.players import build_wr_cohort, cohort_summary, write_wr_cohort
 
 
 @pytest.fixture
 def sample_data(tmp_path):
     tables = {
         "players.csv": [
-            {"nfl_id": 1, "nfl_position": "WR", "draft_year": 2023},
-            {"nfl_id": 2, "nfl_position": "WR", "draft_year": 2024},
-            {"nfl_id": 3, "nfl_position": "WR", "draft_year": 2024},
-            {"nfl_id": 4, "nfl_position": "TE", "draft_year": 2024},
+            {"nfl_id": 1, "display_name": "One", "nfl_position": "WR", "draft_year": 2023},
+            {"nfl_id": 2, "display_name": "Two", "nfl_position": "WR", "draft_year": 2024},
+            {"nfl_id": 3, "display_name": "Three", "nfl_position": "WR", "draft_year": 2024},
+            {"nfl_id": 4, "display_name": "Four", "nfl_position": "TE", "draft_year": 2024},
         ],
         "combine_results.csv": [
             {"nfl_id": 1, "draft_year": 2023}, {"nfl_id": 2, "draft_year": 2024},
@@ -120,6 +121,43 @@ def test_flags_candidate_that_was_not_the_target(sample_data):
     drills = report["wr_drill_coverage"].set_index("drill_type")
     assert drills.loc["FORTY", "wr_players"] == 1
     assert drills.loc["FORTY", "event_ids"] == 1  # repeated frames are one event
+
+
+def test_build_wr_cohort_has_one_row_per_requested_wr(sample_data):
+    cohort = build_wr_cohort(sample_data, chunksize=2)
+
+    assert cohort["nfl_id"].tolist() == ["1", "2", "3"]
+    assert "display_name" in cohort.columns
+    assert cohort["nfl_position"].eq("WR").all()
+    assert cohort["draft_year"].isin([2023, 2024, 2025]).all()
+    assert cohort["nfl_id"].is_unique
+    assert cohort.set_index("nfl_id")["has_combine_results"].to_dict() == {
+        "1": True, "2": True, "3": False
+    }
+    assert cohort.set_index("nfl_id")["has_player_tracking"].to_dict() == {
+        "1": True, "2": False, "3": True
+    }
+    summary = cohort_summary(cohort).set_index("draft_year")
+    assert summary.loc[2023, "wr_players"] == 1
+    assert summary.loc[2024, "wr_players"] == 2
+
+
+def test_build_wr_cohort_rejects_draft_year_disagreement(sample_data):
+    path = sample_data / "combine_results.csv"
+    combine = pd.read_csv(path)
+    combine.loc[combine["nfl_id"].eq(1), "draft_year"] = 2025
+    combine.to_csv(path, index=False)
+
+    with pytest.raises(ValueError, match="disagree on draft_year"):
+        build_wr_cohort(sample_data, chunksize=2)
+
+
+def test_write_wr_cohort_creates_reproducible_csv(sample_data, tmp_path):
+    output = tmp_path / "processed" / "clean_wr_players.csv"
+    cohort = write_wr_cohort(sample_data, output, chunksize=2)
+
+    written = pd.read_csv(output, dtype={"nfl_id": "string"})
+    pd.testing.assert_frame_equal(written, cohort)
 
 
 def test_notebook_runs_end_to_end_with_synthetic_data(sample_data, monkeypatch):
